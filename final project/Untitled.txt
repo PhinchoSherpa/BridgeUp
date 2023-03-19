@@ -1,0 +1,16 @@
+import pandas as pd
+
+#read csv file and create pandas data frame
+df = pd.read_csv("Fiji_Bleaching.csv")
+
+#select rows for a given year
+year2013=df.loc[df['Year']==2013]
+year2014=df.loc[df['Year']==2014]
+
+#group data for a given year by month and calculate the mean temperature for the month
+groupby_month2013 = year2013["Sea_Surface_Temperature"].groupby(year2013["Month"]).mean()
+groupby_month2014 = year2014["Sea_Surface_Temperature"].groupby(year2014["Month"]).mean()
+
+groupby_month=pd.concat([groupby_month2013,groupby_month2014,groupby_month2015,groupby_month2016,groupby_month2017,groupby_month2018])
+
+groupby_month.to_csv("Fiji_Bleaching_Monthmean.csv")
